@@ -1,11 +1,12 @@
-# Use an official lightweight base image
-FROM ubuntu:latest
+# Use the latest Nginx image
+FROM nginx:latest
 
-# Set the working directory
-WORKDIR /app
+# Copy all website files to the Nginx web root
+COPY . /usr/share/nginx/html
 
-# Copy files from your repo into the container
-COPY . .
+# Expose port 80 for web traffic
+EXPOSE 80
 
-# Default command (for now, just keep it simple)
-CMD ["echo", "Docker is working!"]
+# Keep Nginx running in the foreground
+CMD ["nginx", "-g", "daemon off;"]
+
