@@ -1,25 +1,28 @@
 pipeline {
     agent any
+
     stages {
-        stage('Clone Repository') {
+        stage('Checkout Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/madanneeraj/centralrepp.git'
             }
         }
-        stage('Build') {
+
+        stage('Build Docker Image') {
             steps {
-                echo 'Building the project....'
+                script {
+                    sh 'docker build -t myapp:latest .'
+                }
             }
         }
-        stage('Test') {
+
+        stage('Run Docker Container') {
             steps {
-                echo 'Running tests...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the project...'
+                script {
+                    sh 'docker run -d -p 8080:80 myapp:latest'
+                }
             }
         }
     }
 }
+
