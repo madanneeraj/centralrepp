@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: ''
+                git branch: 'main', url: 'https://github.com/madanneeraj/centralrepp.git'
             }
         }
         stage('Build') {
