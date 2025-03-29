@@ -43,12 +43,12 @@ pipeline {
                 script {
                     sshagent(['ssh-key']) {
                         sh '''
-                        ssh -o StrictHostKeyChecking=no root@ip-172-31-11-172 '
-                        docker pull $DOCKER_IMAGE &&
-                        docker stop myapp || true &&
-                        docker rm myapp || true &&
+                        ssh -o StrictHostKeyChecking=no ubuntu@13.232.105.228 << EOF
+                        docker pull $DOCKER_IMAGE
+                        docker stop myapp || true
+                        docker rm myapp || true
                         docker run -d -p 9090:80 --name myapp $DOCKER_IMAGE
-                        '
+                        EOF
                         '''
                     }
                 }
